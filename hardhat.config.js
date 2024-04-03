@@ -24,41 +24,38 @@ module.exports = {
   },
   networks: {
     hardhat: {
-      chainId: 1337,
+      chainId: 2710,
     },
-    mainnet: {
-      url: `https://eth-mainnet.g.alchemy.com/v2/${process.env.ALCHEMY_MAINNET_API_KEY}`,
-      accounts: [`${ACCOUNT_PRIVATE_KEY}`],
-      chainId: 1,
-      gas: 'auto',
-    },
+    
     sepolia: {
       url: `https://eth-sepolia.g.alchemy.com/v2/${process.env.ALCHEMY_SEPOLIA_API_KEY}`,
       accounts: [`${ACCOUNT_PRIVATE_KEY}`],
       chainId: 11155111,
       gas: 'auto',
     },
-    polygon: {
-      url: `https://polygon-mainnet.g.alchemy.com/v2/${process.env.ALCHEMY_POLYGON_API_KEY}`,
+    morphl2: {
+      url: `https://rpc-testnet.morphl2.io/`,
       accounts: [`${ACCOUNT_PRIVATE_KEY}`],
-      chainId: 137,
-      gas: 'auto',
-    },
-    polygonMumbai: {
-      url: `https://polygon-mumbai.g.alchemy.com/v2/${process.env.ALCHEMY_MUMBAI_API_KEY}`,
-      accounts: [`${ACCOUNT_PRIVATE_KEY}`],
-      chainId: 80001,
+      chainId: 2710,
       gas: 'auto',
     },
     // add more networks here
   },
   etherscan: {
     apiKey: {
-      mainnet: process.env.ETHERSCAN_API_KEY,
       sepolia: process.env.ETHERSCAN_API_KEY,
-      polygon: process.env.POLYGONSCAN_API_KEY,
-      polygonMumbai: process.env.POLYGONSCAN_API_KEY,
+      morphl2: process.env.ETHERSCAN_API_KEY,
     },
+    customChains: [
+      {
+        network: "morphl2",
+        chainId: 2710,
+        urls: {
+          apiURL: "https://explorer-api-testnet.morphl2.io/api",
+          browserURL: "https://explorer-testnet.morphl2.io",
+        },
+      },
+    ],
   },
   gasReporter: {
     enabled: true,

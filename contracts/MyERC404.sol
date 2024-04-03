@@ -10,8 +10,8 @@ contract MyERC404 is ERC404 {
     string public dataURI;
     string public baseTokenURI;
 
-    constructor(address _owner) ERC404("MyERC404", "ME404", 18, 10000, _owner) {
-        balanceOf[_owner] = 10000 * 10 ** 18;
+    constructor(address _owner) ERC404("MyERC404", "ME404", 0, 10000, _owner) {
+        balanceOf[_owner] = 10000;
     }
 
     function setDataURI(string memory _dataURI) public onlyOwner {
@@ -33,54 +33,7 @@ contract MyERC404 is ERC404 {
         if (bytes(baseTokenURI).length > 0) {
             return string.concat(baseTokenURI, Strings.toString(id));
         } else {
-            uint8 seed = uint8(bytes1(keccak256(abi.encodePacked(id))));
-            string memory image;
-            string memory color;
-
-            if (seed <= 100) {
-                image = "1.png";
-                color = "Purple";
-            } else if (seed <= 160) {
-                image = "2.png";
-                color = "Red";
-            } else if (seed <= 210) {
-                image = "3.png";
-                color = "Green";
-            } else if (seed <= 240) {
-                image = "4.png";
-                color = "Blue";
-            } else if (seed <= 255) {
-                image = "5.png";
-                color = "Orange";
-            } else if (seed <= 300) {
-                image = "6.png";
-                color = "Lavender";
-            }
-
-            string memory jsonPreImage = string.concat(
-                string.concat(
-                    string.concat(
-                        '{"name": "My ERC404 #',
-                        Strings.toString(id)
-                    ),
-                    '","description":"A collection of circles enabled by ERC404, an experimental token standard.","external_url":"","image":"'
-                ),
-                string.concat(dataURI, image)
-            );
-            string memory jsonPostImage = string.concat(
-                '","attributes":[{"trait_type":"Color","value":"',
-                color
-            );
-            string memory jsonPostTraits = '"}]}';
-
-            return
-                string.concat(
-                    "data:application/json;utf8,",
-                    string.concat(
-                        string.concat(jsonPreImage, jsonPostImage),
-                        jsonPostTraits
-                    )
-                );
+            return string.concat(baseTokenURI, Strings.toString(id));
         }
     }
 }
